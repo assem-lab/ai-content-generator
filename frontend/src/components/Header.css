@@ -1,0 +1,55 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #6A6E70;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    /* padding: 1rem 0; */
+    height: 80px;
+}
+
+.header-content {
+    margin: 0 auto;
+    /* display: flex;
+    align-items: center;
+    justify-content: space-between; */
+    padding: 0 2rem;
+    /* width: 90vw; */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: white;
+    width: 100%;
+}
+
+.logo-icon {
+    max-height: 110px;
+}
+
+.logo-text {
+    color: #222629;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .header-content {
+        padding: 0 1rem;
+    }
+
+    .nav {
+        gap: 1rem;
+    }
+
+    .logo-text {
+        display: none;
+    }
+}
