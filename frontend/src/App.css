@@ -1,0 +1,148 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #222629;
+}
+
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+.app {
+  min-height: 100vh;
+}
+
+.hero-fullscreen {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  background: white;
+}
+
+.form-result-row {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 40px;
+}
+
+.form-column {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 12px;
+  height: fit-content;
+}
+
+.result-column {
+  min-height: 500px;
+}
+
+/* Адаптивность */
+/*
+@media (max-width: 968px) {
+  .form-result-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .form-column {
+    padding: 20px;
+  }
+
+  .content-container {
+    padding: 40px 15px;
+  }
+} */
+
+.app .content-container .form-result-container {
+  width: 90vw;
+  display: flex;
+  /* Меняем grid на flex */
+  align-items: stretch;
+  /* Растягиваем по высоте */
+  /* border: 1px solid #e0e0e0; */
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 100px auto 40px auto !important;
+}
+
+.form-section {
+  background: #474A4F;
+  padding: 40px;
+  width: 40%;
+  /* Фиксированная ширина */
+  border-right: 3px solid #618930;
+  /* Линия разделитель справа */
+}
+
+.result-section {
+  padding: 20px;
+  /* Фиксированная ширина */
+  background: #474A4F;
+}
+
+/* Убираем старый разделитель */
+.divider {
+  display: none;
+}
+
+/* Адаптивность */
+@media (max-width: 968px) {
+  .form-result-container {
+    flex-direction: column;
+    /* На мобильных вертикально */
+  }
+
+  .form-section,
+  .result-section {
+    width: 100%;
+    /* На всю ширину */
+  }
+
+  .form-section {
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+    /* Линия снизу на мобильных */
+  }
+}
+
+/* Индикатор режима API */
+.api-indicator {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.api-indicator.mock {
+  background: rgba(243, 156, 18, 0.8);
+}
+
+.api-indicator.real {
+  background: rgba(39, 174, 96, 0.8);
+}

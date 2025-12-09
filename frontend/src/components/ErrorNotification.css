@@ -1,0 +1,191 @@
+.error-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 450px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%) scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Типы ошибок по контракту */
+.error-validation {
+    background: linear-gradient(135deg, rgba(255, 165, 2, 0.95), rgba(255, 193, 7, 0.95));
+    border-left: 4px solid #ffa502;
+}
+
+.error-network {
+    background: linear-gradient(135deg, rgba(116, 125, 140, 0.95), rgba(99, 110, 114, 0.95));
+    border-left: 4px solid #747d8c;
+}
+
+.error-api {
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.95), rgba(255, 99, 72, 0.95));
+    border-left: 4px solid #ff4757;
+}
+
+.error-server {
+    background: linear-gradient(135deg, rgba(106, 176, 76, 0.95), rgba(87, 204, 153, 0.95));
+    border-left: 4px solid #6ab04c;
+}
+
+.error-content {
+    padding: 20px;
+    color: white;
+}
+
+.error-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    gap: 12px;
+}
+
+.error-icon {
+    font-size: 24px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.error-title-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.error-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.error-status {
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 8px;
+    border-radius: 10px;
+    align-self: flex-start;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.5px;
+}
+
+.error-close {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    margin-top: -4px;
+}
+
+.error-close:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+}
+
+.error-close:active {
+    transform: scale(0.95);
+}
+
+.error-message {
+    margin: 0 0 16px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    opacity: 0.95;
+    font-weight: 400;
+}
+
+.error-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 12px;
+}
+
+.error-code {
+    opacity: 0.85;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.error-code code {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 4px;
+    font-weight: 600;
+}
+
+.error-timestamp {
+    opacity: 0.7;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .error-notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        margin: 0 10px;
+    }
+
+    .error-header {
+        flex-wrap: wrap;
+    }
+
+    .error-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+}
+
+/* Анимация закрытия */
+.error-notification.closing {
+    animation: slideOut 0.3s ease-in forwards;
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%) scale(0.9);
+        opacity: 0;
+    }
+}
