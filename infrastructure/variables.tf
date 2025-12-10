@@ -15,3 +15,14 @@ variable "project_name" {
   type        = string
   default     = "content-gen"
 }
+variable "environment" {
+  description = "Environment name (dev, staging, prod)"
+  type        = string
+  default     = "dev"
+}
+
+variable "random_suffix" {
+  description = "Random suffix for resource names"
+  type        = string
+  default     = "000"
+}

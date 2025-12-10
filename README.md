@@ -1,35 +1,32 @@
-<<<<<<< HEAD
-# README 
-=======
-﻿# AI Content Generator
+# AI Content Generator - ИНФРАСТРУКТУРА ГОТОВА
 
-## Project Overview
-AI-powered content generation application for Cloud-Native Deployment course.
+## 🚀 Живые ссылки
+- **Frontend**: https://storage.googleapis.com/ai-content-generator-478607-content-gen-frontend/index.html
+- **API Endpoint**: https://content-generator-gateway-9xzc6s0.uc.gateway.dev/generate
+- **Cloud Function**: https://generate-content-dy7entf6xa-uc.a.run.app
 
-## Architecture
-- **Frontend**: React + Vite deployed to Cloud Storage
-- **Backend**: Cloud Functions + Gemini API
-- **Database**: Firestore for history
-- **Infrastructure**: Terraform on GCP
+## 📦 Созданные ресурсы в GCP
+1. **Cloud Function** `generate-content` (Python 3.12, Gen2)
+2. **API Gateway** с публичным доступом
+3. **Cloud Storage** для фронтенда и кода функций
+4. **Secret Manager** для Gemini API ключа
+5. **Firestore Database** (Native mode)
+6. **Service Account** с нужными правами
 
-## Team
-- **Frontend**: [Your Name]
-- **Backend**: [Backend Developer Name]
-- **DevOps**: [DevOps Name]
+## 👥 Инструкция для команды
 
-## Current Status: Day 1
-✅ Frontend: React app with mock API
-✅ Frontend: POST /generate implementation
-✅ Frontend: Form validation according to contract
-⏳ Backend: Setting up Cloud Functions
-⏳ Infrastructure: Terraform configuration
+### Dev2 (Backend):
+- API ключ Gemini добавляй в Secret Manager
+- Новые версии кода функций заливай в бакет: `ai-content-generator-478607-content-gen-functions`
+- Используй Service Account для доступа
 
-## Quick Start
-1. Clone repository
-2. cd frontend && npm install
-3. 
-pm run dev
+### Dev3 (Frontend):
+- Собирай статику в `frontend/dist/`
+- Заливай в бакет: `ai-content-generator-478607-content-gen-frontend`
+- API для фронтенда: `https://content-generator-gateway-9xzc6s0.uc.gateway.dev/generate`
 
-## API Contract
-See /docs/api-contract.md for detailed API specification.
->>>>>>> b176c2b7b4c61f7e83ca0ebb2502bebd90e28924
+## 🏗️ Terraform команды
+```bash
+cd infrastructure
+terraform init
+terraform apply
