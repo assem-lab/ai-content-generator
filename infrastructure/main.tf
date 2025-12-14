@@ -116,7 +116,7 @@ resource "google_api_gateway_api_config" "api_config" {
 
   openapi_documents {
     document {
-      path     = "spec.yaml"
+      path = "spec.yaml"
       contents = base64encode(<<EOF
 swagger: "2.0"
 info:
@@ -199,6 +199,6 @@ output "github_actions_sa_key" {
   sensitive = true
 }
 output "github_actions_sa_email" {
-  value = google_service_account.github_actions.email
+  value       = google_service_account.github_actions.email
   description = "Service Account email for GitHub Actions"
 }
