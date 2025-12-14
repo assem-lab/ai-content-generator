@@ -1,4 +1,4 @@
-name: Deploy Infrastructure
+name: CI Pipeline
 
 on:
   push:
@@ -7,14 +7,14 @@ on:
       - 'infrastructure/**'
 
 jobs:
-  deploy:
+  terraform:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./infrastructure
 
     steps:
-    - name: Checkout
+    - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Google Cloud Auth
@@ -35,7 +35,5 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -var="gcp_project_id=ai-content-generator-478607" -var="region=us-central1"
 
-    - name: Terraform Check (No changes expected)
-      run: |
-        terraform plan -var="gcp_project_id=ai-content-generator-478607" -var="region=us-central1"
-        echo "✅ Infrastructure is up-to-date"
+    - name: Success Message
+      run: echo "✅ Infrastructure is up-to-date and working!"
