@@ -189,15 +189,6 @@ resource "google_project_iam_member" "github_actions_editor" {
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
-resource "google_service_account_key" "github_actions_key" {
-  service_account_id = google_service_account.github_actions.name
-}
-
-# Output ключа (будет в terraform state)
-output "github_actions_sa_key" {
-  value     = base64decode(google_service_account_key.github_actions_key.private_key)
-  sensitive = true
-}
 output "github_actions_sa_email" {
   value       = google_service_account.github_actions.email
   description = "Service Account email for GitHub Actions"
