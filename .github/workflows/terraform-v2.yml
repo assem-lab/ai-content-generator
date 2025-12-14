@@ -53,9 +53,9 @@ jobs:
     # 7. Plan (для Pull Requests)
     - name: Terraform Plan
       if: github.event_name == 'pull_request'
-      run: terraform plan
+      run: terraform plan -var="gcp_project_id=ai-content-generator-478607" -var="region=us-central1"
 
     # 8. Apply (для прямого пуша в main)
     - name: Terraform Apply
       if: github.event_name == 'push'
-      run: terraform apply -auto-approve
+      run: terraform apply -auto-approve -var="gcp_project_id=ai-content-generator-478607" -var="region=us-central1"
