@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './ContentResult.css';
 import ShareModal from './ShareModal.jsx';
-import CopyIcon from '../assets/icons/copy.png';
+import CopyIcon from '../assets/icons/Copy.png';
 import ShareIcon from '../assets/icons/Export.png';
 import NewPromptIcon from '../assets/icons/New-prompt.png';
 
