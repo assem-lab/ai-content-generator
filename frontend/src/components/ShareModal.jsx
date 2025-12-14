@@ -1,5 +1,12 @@
 import React from 'react';
 import './ShareModal.css';
+import Telegram from '../assets/icons/telegram.png';
+import WhatsApp from '../assets/icons/whatsApp.png';
+import Twitter from '../assets/icons/twitter.png';
+import Vk from '../assets/icons/vk.png';
+import Facebook from '../assets/icons/facebook.png';
+import LinkedIn from '../assets/icons/linkedIn.png';
+
 
 const ShareModal = ({ isOpen, onClose, content, title }) => {
     if (!isOpen) return null;
@@ -60,32 +67,32 @@ const ShareModal = ({ isOpen, onClose, content, title }) => {
 
                     <div className="social-grid">
                         <button className="social-btn telegram" onClick={() => shareToSocial('telegram')}>
-                            <span className="social-icon">✈️</span>
+                            <span className="social-icon"><img src={Telegram} alt="" /></span>
                             <span className="social-name">Telegram</span>
                         </button>
 
                         <button className="social-btn whatsapp" onClick={() => shareToSocial('whatsapp')}>
-                            <span className="social-icon">💬</span>
+                            <span className="social-icon"><img src={WhatsApp} alt="" /></span>
                             <span className="social-name">WhatsApp</span>
                         </button>
 
                         <button className="social-btn twitter" onClick={() => shareToSocial('twitter')}>
-                            <span className="social-icon">🐦</span>
+                            <span className="social-icon"><img src={Twitter} alt="" /></span>
                             <span className="social-name">Twitter</span>
                         </button>
 
                         <button className="social-btn vk" onClick={() => shareToSocial('vk')}>
-                            <span className="social-icon">🔷</span>
+                            <span className="social-icon"><img src={Vk} alt="" /></span>
                             <span className="social-name">VK</span>
                         </button>
 
                         <button className="social-btn facebook" onClick={() => shareToSocial('facebook')}>
-                            <span className="social-icon">📘</span>
+                            <span className="social-icon"><img src={Facebook} alt="" /></span>
                             <span className="social-name">Facebook</span>
                         </button>
 
                         <button className="social-btn linkedin" onClick={() => shareToSocial('linkedin')}>
-                            <span className="social-icon">💼</span>
+                            <span className="social-icon"><img src={LinkedIn} alt="" /></span>
                             <span className="social-name">LinkedIn</span>
                         </button>
                     </div>
