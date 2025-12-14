@@ -36,6 +36,6 @@ jobs:
       run: terraform plan -var="gcp_project_id=ai-content-generator-478607" -var="region=us-central1"
 
     - name: Terraform Check (No changes expected)
-  run: |
-    terraform plan -var="gcp_project_id=ai-content-generator-478607" -var="region=us-central1"
-    echo "✅ Infrastructure is up-to-date"
+      run: |
+        terraform plan -var="gcp_project_id=ai-content-generator-478607" -var="region=us-central1"
+        echo "✅ Infrastructure is up-to-date"
