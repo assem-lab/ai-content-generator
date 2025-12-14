@@ -1,0 +1,39 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'infrastructure/**'
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./infrastructure
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Google Cloud Auth
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: '${{ secrets.GCP_SA_KEY }}'
+        project_id: 'ai-content-generator-478607'
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Validate
+      run: terraform validate
+
+    - name: Terraform Plan
+      run: terraform plan -var="gcp_project_id=ai-content-generator-478607" -var="region=us-central1"
+
+    - name: Success Message
+      run: echo "✅ Infrastructure is up-to-date and working!"

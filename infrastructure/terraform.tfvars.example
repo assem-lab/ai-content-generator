@@ -1,0 +1,3 @@
+# Example variables 
+gcp_project_id = "ВАШ-PROJECT-ID-ЗДЕСЬ"
+region         = "us-central1"
