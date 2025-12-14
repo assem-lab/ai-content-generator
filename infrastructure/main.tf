@@ -1,3 +1,4 @@
+# Last CI/CD test: $(date)
 # Main resources 
 
 # 1. Service Account для функций
@@ -174,4 +175,30 @@ output "cloud_function_uri" {
 
 output "api_gateway_url" {
   value = "https://${google_api_gateway_gateway.api_gateway.default_hostname}"
+}
+# Service Account для GitHub Actions CI/CD
+resource "google_service_account" "github_actions" {
+  account_id   = "github-actions-sa"
+  display_name = "Service Account for GitHub Actions"
+}
+
+# Минимальные необходимые роли
+resource "google_project_iam_member" "github_actions_editor" {
+  project = var.gcp_project_id
+  role    = "roles/editor"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
+resource "google_service_account_key" "github_actions_key" {
+  service_account_id = google_service_account.github_actions.name
+}
+
+# Output ключа (будет в terraform state)
+output "github_actions_sa_key" {
+  value     = base64decode(google_service_account_key.github_actions_key.private_key)
+  sensitive = true
+}
+output "github_actions_sa_email" {
+  value = google_service_account.github_actions.email
+  description = "Service Account email for GitHub Actions"
 }
