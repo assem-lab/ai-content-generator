@@ -10,8 +10,8 @@ const config = {
 
     // API настройки
     api: {
-        baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api',
-        mode: import.meta.env.VITE_API_MODE || 'MOCK',
+        baseURL: import.meta.env.VITE_API_BASE_URL || 'https://us-central1-ai-content-generator-478607.cloudfunctions.net',
+        mode: import.meta.env.VITE_API_MODE || 'REAL', // ← ИЗМЕНИ MOCK на REAL
         timeout: 30000, // 30 секунд
         retryAttempts: 3,
         retryDelay: 1000,

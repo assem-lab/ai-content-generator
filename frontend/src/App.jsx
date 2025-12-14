@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import ContentForm from './Components/ContentForm.jsx';
-import ContentResult from './Components/ContentResult.jsx';
-import History from './Components/History.jsx';
-import Hero from './Components/Hero.jsx';
-import Header from './Components/Header.jsx';
-import ErrorNotification from './Components/ErrorNotification.jsx';
+import ContentForm from './components/ContentForm.jsx';
+import ContentResult from './components/ContentResult.jsx';
+import History from './components/History.jsx';
+import Hero from './components/Hero.jsx';
+import Header from './components/Header.jsx';
+import ErrorNotification from './components/ErrorNotification.jsx';
 import apiClient from './api'; // Добавляем импорт API клиента
 import './App.css';
 
@@ -14,12 +14,61 @@ function App() {
   const [history, setHistory] = useState([]);
   const [error, setError] = useState(null);
   const [userId, setUserId] = useState(null); // Добавляем userId
-  const [apiMode, setApiMode] = useState('MOCK'); // Добавляем режим API
+  // const [apiMode, setApiMode] = useState('MOCK'); // Добавляем режим API
   const formRef = useRef(null);
 
-  // Инициализация при загрузке
+  // // Инициализация при загрузке
+  // useEffect(() => {
+  //   // Генерируем или получаем user_id
+  //   const storedUserId = localStorage.getItem('ai_content_user_id');
+  //   if (storedUserId) {
+  //     setUserId(storedUserId);
+  //   } else {
+  //     const newUserId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
+  //     localStorage.setItem('ai_content_user_id', newUserId);
+  //     setUserId(newUserId);
+  //   }
+  // }, []);
+
+  // // Загрузка истории с сервера/мока
+  // useEffect(() => {
+  //   if (userId) {
+  //     loadHistory();
+  //   }
+  // }, [userId]);
+
+  // const loadHistory = async () => {
+  //   try {
+  //     const response = await apiClient.getHistory({
+  //       user_id: userId,
+  //       limit: 10
+  //     });
+
+  //     if (response.status === 'success') {
+  //       // Конвертируем формат истории для совместимости
+  //       const formattedHistory = response.data.items.map(item => ({
+  //         id: item.id,
+  //         timestamp: item.created_at,
+  //         subject: item.topic,
+  //         type: item.content_type,
+  //         tone: 'professional', // моковые данные
+  //         language: item.language,
+  //         content: item.content_preview || item.content,
+  //         word_count: item.word_count
+  //       }));
+  //       setHistory(formattedHistory);
+  //     }
+  //   } catch (error) {
+  //     console.error('Ошибка загрузки истории:', error);
+  //   }
+  // };
+
   useEffect(() => {
-    // Генерируем или получаем user_id
+    // 1. ПРИНУДИТЕЛЬНО НАСТРАИВАЕМ REAL API
+    apiClient.setMode('REAL', 'https://us-central1-ai-content-generator-478607.cloudfunctions.net');
+    console.log('🚀 API Client настроен на REAL режим');
+
+    // 2. Генерируем или получаем user_id
     const storedUserId = localStorage.getItem('ai_content_user_id');
     if (storedUserId) {
       setUserId(storedUserId);
@@ -30,7 +79,7 @@ function App() {
     }
   }, []);
 
-  // Загрузка истории с сервера/мока
+  // Загрузка истории с РЕАЛЬНОГО сервера
   useEffect(() => {
     if (userId) {
       loadHistory();
@@ -39,27 +88,37 @@ function App() {
 
   const loadHistory = async () => {
     try {
+      console.log('📡 Загружаем историю для пользователя:', userId);
+
       const response = await apiClient.getHistory({
         user_id: userId,
         limit: 10
       });
 
+      console.log('📊 Ответ истории:', response);
+
       if (response.status === 'success') {
-        // Конвертируем формат истории для совместимости
+        // Используем реальные данные, без моков
         const formattedHistory = response.data.items.map(item => ({
           id: item.id,
           timestamp: item.created_at,
           subject: item.topic,
           type: item.content_type,
-          tone: 'professional', // моковые данные
+          tone: item.tone || 'professional', // Берем из ответа, не мок
           language: item.language,
-          content: item.content_preview || item.content,
-          word_count: item.word_count
+          content: item.content_preview || item.content || '',
+          word_count: item.word_count || 0
         }));
+
+        console.log('✅ Загружено записей истории:', formattedHistory.length);
         setHistory(formattedHistory);
+      } else {
+        console.error('❌ Ошибка в ответе истории:', response.error);
       }
     } catch (error) {
-      console.error('Ошибка загрузки истории:', error);
+      console.error('❌ Ошибка загрузки истории:', error);
+      // Если API не доступен, показываем пустую историю
+      setHistory([]);
     }
   };
 
@@ -131,10 +190,10 @@ function App() {
   };
 
   // Переключение режима API (опционально, для DevPanel)
-  const handleApiModeChange = (mode) => {
-    setApiMode(mode);
-    apiClient.setMode(mode, mode === 'REAL' ? 'http://localhost:8080' : '');
-  };
+  // const handleApiModeChange = (mode) => {
+  //   setApiMode(mode);
+  //   apiClient.setMode(mode, mode === 'REAL' ? 'http://localhost:8080' : '');
+  // };
 
   return (
     <div className="app">
@@ -176,7 +235,7 @@ function App() {
               result={result}
               loading={loading}
               onNewRequest={handleNewRequest}
-              apiMode={apiMode} // Передаём режим API
+            // apiMode={apiMode} // Передаём режим API
             />
           </div>
         </div>

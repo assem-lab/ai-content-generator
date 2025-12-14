@@ -42,7 +42,6 @@ const ContentForm = ({ onResult, loading, setLoading, userId }) => { // Add user
         setFieldErrors(errors);
         return Object.keys(errors).length === 0;
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -71,8 +70,21 @@ const ContentForm = ({ onResult, loading, setLoading, userId }) => { // Add user
                 user_id: userId || 'demo_user'    // Add user_id
             };
 
+            // =========== ДЕБАГ ЛОГИ ===========
+            console.log('🔍 [DEBUG] Form data:', formData);
+            console.log('🔍 [DEBUG] API data being sent:', apiData);
+            console.log('🔍 [DEBUG] Calling apiClient.generate...');
+            // ==================================
+
             // Use API client instead of setTimeout
             const response = await apiClient.generate(apiData);
+
+            // =========== ДЕБАГ ЛОГИ ===========
+            console.log('🔍 [DEBUG] API Response:', response);
+            console.log('🔍 [DEBUG] Response status:', response?.status);
+            console.log('🔍 [DEBUG] Response data:', response?.data);
+            console.log('🔍 [DEBUG] Response error:', response?.error);
+            // ==================================
 
             // Add requestData for compatibility
             onResult({
@@ -81,6 +93,14 @@ const ContentForm = ({ onResult, loading, setLoading, userId }) => { // Add user
             });
 
         } catch (error) {
+            // =========== ДЕБАГ ЛОГИ ===========
+            console.error('🔍 [DEBUG] Catch error:', error);
+            console.error('🔍 [DEBUG] Error message:', error.message);
+            console.error('🔍 [DEBUG] Error code:', error.code);
+            console.error('🔍 [DEBUG] Error response:', error.response);
+            console.error('🔍 [DEBUG] Error response data:', error.response?.data);
+            // ==================================
+
             // Network error handling
             onResult({
                 status: "error",
@@ -93,6 +113,57 @@ const ContentForm = ({ onResult, loading, setLoading, userId }) => { // Add user
             setLoading(false);
         }
     };
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+
+    //     // Validation before submission
+    //     if (!validateForm()) {
+    //         onResult({
+    //             status: "error",
+    //             error: {
+    //                 code: "VALIDATION_ERROR",
+    //                 message: "Please fix errors in the form"
+    //             }
+    //         });
+    //         return;
+    //     }
+
+    //     setLoading(true);
+    //     setFieldErrors({});
+
+    //     try {
+    //         // Prepare data for API (map subject→topic, type→content_type)
+    //         const apiData = {
+    //             topic: formData.subject,           // Mapping for contract
+    //             content_type: formData.type,      // Mapping for contract
+    //             tone: formData.tone,
+    //             language: formData.language,
+    //             user_id: userId || 'demo_user'    // Add user_id
+    //         };
+
+    //         // Use API client instead of setTimeout
+    //         const response = await apiClient.generate(apiData);
+
+    //         // Add requestData for compatibility
+    //         onResult({
+    //             ...response,
+    //             requestData: formData
+    //         });
+
+    //     } catch (error) {
+    //         // Network error handling
+    //         onResult({
+    //             status: "error",
+    //             error: {
+    //                 code: "NETWORK_ERROR",
+    //                 message: "Network error. Check connection."
+    //             }
+    //         });
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
 
     const handleChange = (e) => {
         const { name, value } = e.target;

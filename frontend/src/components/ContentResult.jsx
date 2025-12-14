@@ -1,10 +1,13 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import './ContentResult.css';
+import ShareModal from './ShareModal.jsx';
 import CopyIcon from '../assets/icons/copy.png';
 import ShareIcon from '../assets/icons/Export.png';
 import NewPromptIcon from '../assets/icons/New-prompt.png';
 
 const ContentResult = ({ result, loading, onNewRequest, apiMode }) => {
+    const [showShareModal, setShowShareModal] = useState(false);
     // Add function for error messages by contract
     const getErrorMessage = (code) => {
         const messages = {
@@ -40,19 +43,19 @@ const ContentResult = ({ result, loading, onNewRequest, apiMode }) => {
         }
     };
 
-    const handleShare = () => {
-        if (result?.data?.content) {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Generated content',
-                    text: result.data.content,
-                });
-            } else {
-                navigator.clipboard.writeText(result.data.content);
-                alert('Content copied to clipboard for sharing!');
-            }
-        }
-    };
+    // const handleShare = () => {
+    //     if (result?.data?.content) {
+    //         if (navigator.share) {
+    //             navigator.share({
+    //                 title: 'Generated content',
+    //                 text: result.data.content,
+    //             });
+    //         } else {
+    //             navigator.clipboard.writeText(result.data.content);
+    //             alert('Content copied to clipboard for sharing!');
+    //         }
+    //     }
+    // };
 
     if (loading) {
         return (
@@ -153,6 +156,14 @@ const ContentResult = ({ result, loading, onNewRequest, apiMode }) => {
                             <span>Language: {result.data.language === 'ru' ? '🇷🇺' : '🇬🇧'}</span>
                             <span>Created: {new Date(result.data.created_at).toLocaleString()}</span>
                         </div>
+                        {hasContent && (
+                            <ShareModal
+                                isOpen={showShareModal}
+                                onClose={() => setShowShareModal(false)}
+                                content={result.data.content}
+                                title={`AI Generated: ${result.data.topic || 'Content'}`}
+                            />
+                        )}
                     </>
                 ) : (
                     <div className="empty-content">
@@ -175,9 +186,17 @@ const ContentResult = ({ result, loading, onNewRequest, apiMode }) => {
                     <span>Copy</span>
                     <span className="checkbox"><img src={CopyIcon} alt="copy-icon" /></span>
                 </button>
-                <button
+                {/* <button
                     className="btn-share"
                     onClick={handleShare}
+                    disabled={!hasContent}
+                >
+                    <span>Share</span>
+                    <span className="checkbox"><img src={ShareIcon} alt="share-icon" /></span>
+                </button> */}
+                <button
+                    className="btn-share"
+                    onClick={() => setShowShareModal(true)} // Открываем модалку
                     disabled={!hasContent}
                 >
                     <span>Share</span>

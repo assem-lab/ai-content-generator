@@ -4,11 +4,15 @@ import App from './App';
 import './index.css';
 import config, { log } from './config';
 
+config.api.mode = 'REAL';
+config.api.baseURL = 'https://us-central1-ai-content-generator-478607.cloudfunctions.net';
+// ===========================================
+
 // Логирование информации о приложении
 log.info(`🚀 ${config.app.name} v${config.app.version}`);
 log.info(`🌍 Environment: ${config.app.environment}`);
-log.info(`🔧 API Mode: ${config.api.mode}`);
-log.info(`🌐 API URL: ${config.api.baseURL}`);
+log.info(`🔧 API Mode: ${config.api.mode}`); // Теперь будет REAL
+log.info(`🌐 API URL: ${config.api.baseURL}`); // Теперь реальный URL
 
 // В режиме разработки показываем предупреждения
 if (config.isDevelopment()) {
